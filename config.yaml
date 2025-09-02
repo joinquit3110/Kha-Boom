@@ -1,0 +1,34 @@
+siteName: Kha-Boom!
+description: A interactive textbook
+domain: khaboom.org
+
+privacyURL: https://amplify.com/customer-privacy
+banner: (c) Kha-Boom!
+locales: [en, ar, cn, de, es, fr, hi, hr, it, ja, pt, ro, ru, sv, tr, vi]
+
+search:
+  enabled: false
+
+footer:
+  rows:
+    - links:
+        - title: GitHub
+          url: https://github.com/mathigon/textbooks
+        - title: Live Website
+          url: https://mathigon.org/courses
+  copyright: © Mathigon, 2022
+
+social:
+  facebook: {}
+  twitter: {}
+
+courses:
+  showLocked: true
+  revealAll: false
+  audio: false
+
+accounts:
+  enabled: false
+
+tutor:
+  enabled: true

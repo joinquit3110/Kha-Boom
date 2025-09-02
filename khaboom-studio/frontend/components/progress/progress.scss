@@ -1,0 +1,17 @@
+// =============================================================================
+// Progress Styles
+// (c) Kha-Boom!
+// =============================================================================
+
+
+x-progress {
+  border: 2px solid currentColor;
+  border-radius: 100%;
+  box-sizing: border-box;
+  width: 24px; height: 24px; display: inline-block; position: relative;
+  svg { display: block; margin: -14px; pointer-events: none; max-width: none; width: 48px; height: 48px; }
+  path.pie, path.done { /* rtl:ignore */ transform: translate(12px, 12px); }
+  // Ensure the progress arc is thick and rounded like legacy design
+  path.pie { fill: none; stroke: currentColor; stroke-width: 3px; stroke-linecap: round; }
+  line { stroke: currentColor; stroke-width: 2px; }
+}

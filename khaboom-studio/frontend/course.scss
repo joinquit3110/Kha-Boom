@@ -1,0 +1,522 @@
+// =============================================================================
+// Course Styles
+// (c) Kha-Boom!
+// =============================================================================
+
+
+@import "./main";
+
+@import "./components/blank/blank";
+@import "./components/free-text/free-text";
+@import "./components/gallery/gallery";
+@import "./components/gesture/gesture";
+@import "./components/gloss/gloss";
+@import "./components/image/image";
+@import "./components/picker/picker";
+@import "./components/progress/progress";
+@import "./components/sidebar/sidebar";
+@import "./components/slider/slider";
+@import "./components/slideshow/slideshow";
+@import "./components/sortable/sortable";
+@import "./components/step/step";
+@import "./components/target/target";
+@import "./components/tutor/tutor";
+@import "./components/variable/variable";
+@import "./components/video/play-btn";
+@import "./components/video/video";
+@import "./components/tabbox/tabbox"; 
+
+
+html, body {
+  user-select: none;
+  text-size-adjust: none;
+  touch-action: pan-y;
+}
+
+main { padding: 0 40px 0 320px; margin-top: 0; }
+x-course { display: block; }
+article { user-select: text; max-width: 760px; margin: 0 auto; }
+.kb-colorful-title { 
+  background: linear-gradient(45deg, #6B46C1, #CD0E66, #FD8C00, #38B2AC);
+  background-size: 400% 400%;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 8s ease-in-out infinite;
+  position: relative;
+}
+
+.kb-colorful-text {
+  background: linear-gradient(90deg, #ff8a00, #e52e71, #6B46C1, #38B2AC);
+  background-size: 300% 300%;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 5s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+h1 { 
+  font-weight: 900; 
+  margin: 32px 0 40px; 
+  line-height: 1.08; 
+  letter-spacing: 0.2px;
+  @include theme(color, black, white); 
+  position: relative;
+  font-size: 3rem;
+}
+.kb-colorful-title {
+  // Enhanced styling with dramatic effects
+  text-shadow: 0 4px 25px rgba(107,70,193,.4), 0 2px 8px rgba(0,0,0,.25);
+  filter: drop-shadow(0 0 20px rgba(107,70,193,.25));
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+.kb-colorful-title:hover {
+  transform: translateY(-4px);
+  filter: drop-shadow(0 0 30px rgba(107,70,193,.4));
+}
+.kb-colorful-title:before {
+  content: "";
+  position: absolute;
+  left: -10px; top: -5px; right: -10px; bottom: -5px;
+  background: linear-gradient(45deg, rgba(107,70,193,.05), rgba(205,14,102,.05), rgba(253,140,0,.05), rgba(56,178,172,.05));
+  border-radius: 12px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.kb-colorful-title:hover:before {
+  opacity: 1;
+}
+.kb-colorful-title:after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -15px;
+  width: 180px; height: 6px;
+  border-radius: 8px;
+  background: linear-gradient(45deg, #6B46C1, #CD0E66, #FD8C00, #38B2AC);
+  opacity: .95;
+  animation: gradientShift 8s ease-in-out infinite;
+  box-shadow: 0 2px 15px rgba(107,70,193,.3);
+}
+
+.kb-colorful-title:after { display: none; }
+article { user-select: text; max-width: 760px; margin: 0 auto; padding-top: 16px; }
+.kb-course-subtitle { font-size: 20px; opacity: .35; margin-top: 8px; }
+.course-title { display: none; font-size: 24px; opacity: 0.3; }
+
+html.no-header {
+  main { padding-top: 0; margin-top: 0; }
+  .page-background { top: 0; }
+  .reveal-banner { top: 8px; }
+  x-course-sidebar { top: 0 !important; margin-top: 0 !important; }
+  body { margin: 0; padding: 0; }
+}
+
+// Ensure absolutely no top spacing for course pages
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; // prevent accidental horizontal scroll from effects
+  overflow-y: visible;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+}
+
+// Ensure the next-step banner is always aligned to the bottom of the screen.
+// Avoid double vertical scrollbars and clipped bottom when revealing content
+// Steps container: ensure it simply grows with content and avoids forcing a secondary
+// scrollbar by not constraining height relative to (now removed) footer.
+// Steps should not create their own scrollbars; let body handle scrolling
+.steps { min-height: 40vh; overflow: visible; }
+// Ensure footer never covers last step content
+// Reserve space at bottom so final step content is not hidden behind footer.
+// Will be reduced for compact footer variant.
+article, .steps { padding-bottom: 320px; }
+footer.kb-restored-footer { position: relative; }
+
+// Hide reveal banner and skip/reveal controls visually but keep DOM for logic
+// Keep reveal controls hidden visually but ensure layout doesn't add extra height
+.reveal-banner { display: none !important; height: 0 !important; padding: 0 !important; }
+footer .skip-step { display: none !important; }
+
+.page-background {
+  position: fixed;
+  top: 0; left: 280px; bottom: 0; right: 0;
+  z-index: -1;
+  article.dark & { background: black; }
+}
+
+// Guard against any accidental elements causing horizontal overflow
+// Avoid horizontal scrollbars on the page wrapper, but allow content blocks
+// like glossary popups to overflow horizontally beyond article without clipping.
+main, body, html { overflow-x: hidden; }
+
+// -----------------------------------------------------------------------------
+// SVG and Coordinate System Defaults
+
+// Ensure inline SVG elements animate/transform correctly and render consistently
+svg { display: block; overflow: hidden; }
+li svg, p svg, td svg { display: inline-block; }
+circle, g, image, line, path, polyline, use { transform-box: fill-box; transform-origin: center; }
+
+// Generic coordinate sketch/system used across courses
+x-coordinate-sketch, x-coordinate-system {
+  color: $red; // stroke/fill color for default series
+  margin: 2em auto;
+  touch-action: pan-y;
+}
+
+x-coordinate-sketch svg, x-coordinate-system svg {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+// Plot primitives
+x-coordinate-sketch .plot path, x-coordinate-system .plot path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3px;
+}
+
+x-coordinate-sketch .plot circle, x-coordinate-system .plot circle { fill: currentColor; }
+
+// Crosshair styles
+x-coordinate-sketch .crosshair, x-coordinate-system .crosshair { display: none; }
+
+x-coordinate-sketch .crosshair circle, x-coordinate-system .crosshair circle {
+  fill: white;
+  stroke: currentColor;
+  stroke-width: 3px;
+}
+html[theme=dark] x-coordinate-sketch .crosshair circle,
+html[theme=dark] x-coordinate-system .crosshair circle { fill: #22212e; }
+
+x-coordinate-sketch .crosshair path, x-coordinate-system .crosshair path {
+  fill: none;
+  stroke: #3a3645;
+  stroke-width: 2px;
+}
+html[theme=dark] x-coordinate-sketch .crosshair path,
+html[theme=dark] x-coordinate-system .crosshair path { stroke: white; }
+
+x-coordinate-sketch .crosshair text, x-coordinate-system .crosshair text {
+  fill: currentColor;
+  font-size: 14px;
+  stroke-width: 6px;
+  paint-order: stroke;
+}
+
+// Generic chart helpers
+.chart-line { fill: none; stroke-width: 3; }
+.chart-outline { fill: none; stroke-width: 6px; stroke: currentColor; }
+.chart-shadow { fill: none; stroke-width: 10px; opacity: 0.4; }
+.donut-hole { @include theme(fill, white, #22212e); }
+.chart-focussed { cursor: pointer; }
+
+// Legacy micro-animations sometimes used by audio/speaker widgets
+@keyframes speaker-move { 0% { transform: none; } 50% { transform: translateX(3px); } 100% { transform: none; } }
+@keyframes metronome { 0% { transform: rotate(0deg); } 50% { transform: rotate(5deg); } 100% { transform: rotate(0deg); } }
+.effects-speaker-move { animation: speaker-move .1s; }
+
+// -----------------------------------------------------------------------------
+// Geopad defaults
+
+x-geopad {
+  color: $purple;
+}
+
+x-geopad svg.canvas { stroke-linecap: round; stroke-linejoin: round; }
+// Try to ensure any compass group within geopad rotates around the true center
+x-geopad .compass, x-geopad .compass * { transform-box: fill-box; transform-origin: center; }
+
+// Grid and axes
+x-geopad .grid { color: mix($text-medium, white, 25%); }
+html[theme=dark] x-geopad .grid { color: rgba(white, 0.2); }
+x-geopad .grid line { stroke: currentColor; }
+html[theme=dark] x-geopad .grid line { stroke: currentColor; }
+
+x-geopad .axes line { stroke: currentColor; }
+html[theme=dark] x-geopad .axes line { stroke: currentColor; }
+x-geopad .axes, x-geopad .grid { opacity: 0.9; }
+x-geopad .axes line:not(.tick) { stroke-width: 2px; }
+
+// Labels
+x-geopad .labels text { fill: currentColor; paint-order: stroke; stroke-width: 6px; }
+.is-safari x-geopad .labels text { paint-order: normal; stroke-width: 0; }
+html[theme=dark] x-geopad .labels text { stroke: $dark-mode; }
+
+// Gestures overlay
+x-geopad x-gesture { pointer-events: none; }
+
+// Paths and points styling
+x-geopad .paths path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3px;
+  transition: stroke .2s, stroke-width .2s, fill .2s, opacity .2s, color .2s;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+x-geopad .paths path.hover, x-geopad .paths path.selected { stroke-width: 4px; }
+x-geopad .paths path.thin { stroke-width: 2px; }
+x-geopad .paths path.thick { stroke-width: 4px; }
+x-geopad .paths path.fill { stroke-width: 0; fill: currentColor; }
+x-geopad .paths path[x^="angle("] { stroke-linecap: butt; }
+
+x-geopad .points circle {
+  fill: #f5f5f6;
+  stroke: currentColor;
+  stroke-width: 3px;
+  transition: r .2s, stroke-width .2s, fill .2s, opacity .2s, color .2s;
+  r: 3.5px;
+}
+html[theme=dark] x-geopad .points circle { fill: #2d2c38; }
+x-geopad .points circle.move {
+  r: 8px;
+  touch-action: none;
+  stroke: transparent;
+  stroke-width: 20px;
+  fill: currentColor;
+}
+html[theme=dark] x-geopad .points circle.move { fill: currentColor; }
+x-geopad .points circle.hover, x-geopad .points circle.selected { r: 6px; }
+x-geopad .points circle.move.hover, x-geopad .points circle.move.selected { r: 12px; }
+x-geopad .points circle.pending { transition: none; }
+
+// Ensure the canvas itself fills the component
+x-geopad { position: relative; display: block; }
+x-geopad svg.canvas { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+x-geopad>canvas, x-geopad>img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; max-width: none; }
+
+// Focus states
+.focus x-geopad .paths path.focus:not(.fill) { stroke-width: 5px; }
+.focus x-geopad .points circle.focus { r: 8px; stroke-width: 5px; }
+.focus x-geopad .points circle.move.focus { r: 12px; }
+.focus x-geopad .labels text:not(.focus) { opacity: .25; }
+.focus x-geopad .axes, .focus x-geopad canvas { opacity: .25; }
+.focus x-geopad .grid { opacity: .05; }
+// Dim embedded images when focussing geometry (parity with legacy)
+.focus x-geopad image { opacity: .2; }
+
+// Non-focused elements get lightened (not just opacity) to emphasise focus
+.focus x-geopad .paths path:not(.focus),
+.focus x-geopad .points circle:not(.focus) { color: #e7e6e9; }
+html[theme=dark] .focus x-geopad .paths path:not(.focus),
+html[theme=dark] .focus x-geopad .points circle:not(.focus) { color: #383644; }
+
+.focus x-geopad .paths path:not(.focus).dark,
+.focus x-geopad .paths path:not(.focus).move,
+.focus x-geopad .points circle:not(.focus).dark,
+.focus x-geopad .points circle:not(.focus).move { color: #e2e2e4; }
+html[theme=dark] .focus x-geopad .paths path:not(.focus).dark,
+html[theme=dark] .focus x-geopad .paths path:not(.focus).move,
+html[theme=dark] .focus x-geopad .points circle:not(.focus).dark,
+html[theme=dark] .focus x-geopad .points circle:not(.focus).move { color: #575660; }
+
+.focus x-geopad .paths path:not(.focus).red, .focus x-geopad .points circle:not(.focus).red { color: #f1dee8; }
+.focus x-geopad .paths path:not(.focus).blue, .focus x-geopad .points circle:not(.focus).blue { color: #d7e7fb; }
+.focus x-geopad .paths path:not(.focus).green, .focus x-geopad .points circle:not(.focus).green { color: #d7edd7; }
+.focus x-geopad .paths path:not(.focus).yellow, .focus x-geopad .points circle:not(.focus).yellow { color: #ffe1bf; }
+.focus x-geopad .paths path:not(.focus).teal, .focus x-geopad .points circle:not(.focus).teal { color: #cfeaed; }
+.focus x-geopad .paths path:not(.focus).orange, .focus x-geopad .points circle:not(.focus).orange { color: #f7d9d2; }
+.focus x-geopad .paths path:not(.focus).purple, .focus x-geopad .points circle:not(.focus).purple { color: #e4d9f8; }
+.focus x-geopad .paths path:not(.focus).lime, .focus x-geopad .points circle:not(.focus).lime { color: #f0f2c6; }
+.focus x-geopad .paths path:not(.focus).white, .focus x-geopad .points circle:not(.focus).white { color: #fff; }
+
+// Color helpers for geopad (use currentColor in SVG; set color here)
+x-geopad {
+  // Base palette
+  .labels text.red, .paths path.red, .points circle.red { color: $red; }
+  .labels text.blue, .paths path.blue, .points circle.blue { color: $blue; }
+  .labels text.green, .paths path.green, .points circle.green { color: $green; }
+  .labels text.yellow, .paths path.yellow, .points circle.yellow { color: $yellow; }
+  .labels text.teal, .paths path.teal, .points circle.teal { color: $teal; }
+  .labels text.orange, .paths path.orange, .points circle.orange { color: $orange; }
+  .labels text.purple, .paths path.purple, .points circle.purple { color: $purple; }
+  .labels text.lime, .paths path.lime, .points circle.lime { color: $lime; }
+  .labels text.white, .paths path.white, .points circle.white { color: white; }
+
+  // State colors
+  .labels text, .paths path, .points circle { color: #656073; }
+  html[theme=dark] & .labels text, html[theme=dark] & .paths path, html[theme=dark] & .points circle { color: #b2b0b9; }
+  .labels text.move, .paths path.move, .points circle.move { color: #3a3645; }
+  .labels text.dark, .paths path.dark, .points circle.dark { color: #3a3645; }
+
+  // Dim non-focused by color variants
+  html[theme=dark] & {
+    .labels text { stroke: $dark-mode; }
+    .points circle { stroke: currentColor; }
+  }
+}
+
+.reveal-banner {
+  z-index: 100;
+  position: fixed;
+  top: 12px;
+  left: 280px;
+  font-size: 13px;
+  background: rgba(mix($medium-grey, white, 40%), 95%);
+  // backdrop-filter: blur(4px);
+  color: white;
+  border-radius: 0 24px 24px 0;
+  padding: 4px 18px 4px 16px;
+  line-height: 17px;
+  transition: transform .4s, opacity .4s;
+
+  svg { display: inline-block; margin: 0 0 -2px 3px; }
+  path { stroke: white; fill: none; stroke-width: 1.5px; stroke-linecap: round; }
+
+  .complete { cursor: pointer; width: fit-content; display: block; }
+  .complete:hover { text-decoration: underline; }
+  &.off { transform: translateX(-100%); opacity: 0; }
+}
+
+.section-dev {
+  text-align: center;
+  color: $text-medium;
+  svg { width: 120px; margin: 0 auto 6px; fill: $text-medium; }
+  h2 { margin: 0 0 12px 0; }
+}
+
+
+// -----------------------------------------------------------------------------
+// Course Footer
+
+footer { height: 320px; position: relative; padding-top: 80px; display: none; overflow: hidden; }
+// Minimized restored footer variant to avoid large empty space and secondary scrollbars
+footer.kb-restored-footer { height: auto; padding-top: 16px; padding-bottom: 8px; }
+// When compact footer active, reduce reserved bottom padding in content areas
+footer.kb-restored-footer ~ main article,
+footer.kb-restored-footer ~ main .steps,
+footer.kb-restored-footer ~ article,
+footer.kb-restored-footer ~ .steps { padding-bottom: 160px; }
+footer.kb-restored-footer .skip-step { position: static; padding: 8px 16px 0; }
+footer.kb-restored-footer .next-section { margin-top: 12px; }
+
+.next-section {
+  display: none;
+  width: max-content; // Firefox doesn't support fit-content...
+  max-width: 100%;
+  margin: 0 auto;
+  transition: transform .2s, filter .2s;
+  &:hover, &:focus { transform: scale(1.05); filter: drop-shadow(0 4px 12px rgba(black, 25%)); }
+}
+
+.next-arrow {
+  border-radius: 6px;
+  position: relative;
+  height: 74px;
+  line-height: 1.4;
+  padding: 8px 36px 0 18px;
+  box-sizing: border-box;
+  max-width: 100%;
+  user-select: none;
+  color: white;
+  transition: background .2s;
+
+  mask: inline-svg('<path d="M718.8,34.2,705.2,2.8A4.9,4.9,0,0,0,701,0H0V74H701a4.9,4.9,0,0,0,4.2-2.8l13.6-31.4A7.7,7.7,0,0,0,718.8,34.2Z"/>', 720, 74);
+  mask-size: 720px 74px;
+  mask-position: right top;
+
+  .small { font-size: 16px; color: rgba(white, 60%); }
+  .title { @include ellipsis; font-size: 26px; font-weight: 600; }
+
+  .next-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-right: 2px solid white;
+    border-radius: 6px 0 0 6px;
+    width: 74px;
+    height: 74px;
+    background-position: center;
+    background-size: cover;
+    & + .small, & + .small + .title { padding-left: 74px; }
+  }
+}
+
+.skip-step {
+  text-align: center;
+  @include theme(color, #888, white);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  font-size: 14px;
+  line-height: 20px;
+  display: none;
+  padding: 0 40px 24px;
+  box-sizing: border-box;
+  margin: 0;
+
+  a { white-space: nowrap; }
+  x-course.ready & { display: block; }
+  @media (max-width: 650px) { br { display: none; } }
+  svg { display: block; margin: 8px auto 0; }
+}
+
+
+// -----------------------------------------------------------------------------
+// Mobile and Print Styles
+
+@media screen and (max-width: $browser-medium) {
+  main { padding: 0 24px 0; } 
+  .page-background { left: 0; }
+  h1 { margin: 16px 0 24px; }
+  .course-title { display: none; }
+  .reveal-banner { left: 0; top: 8px; }
+}
+
+@media screen and (max-width: $browser-small) {
+  main { padding: 44px 24px 0; }
+  .overflow-wrap { margin-left: -24px; margin-right: -24px; padding: 0 24px; }
+}
+
+@media print {
+  header, footer, x-course-sidebar, x-tutor, .page-background { display: none !important; }
+  main { padding: 0 20px !important; margin: 0 !important; }
+  article { max-width: none !important; }
+}
+
+
+// -----------------------------------------------------------------------------
+// Webview Styles
+
+@mixin paddingLeftRight($p){
+  padding: 0 calc(#{$p} + env(safe-area-inset-right)) 0 calc(#{$p} + env(safe-area-inset-left));
+}
+
+@mixin paddingBottom($top, $right, $bottom: $top, $left: $right){
+  padding: $top $right calc(#{$bottom} + env(safe-area-inset-bottom)) $left;
+}
+
+html.webview {
+  main { @include paddingLeftRight(40px); }
+  .page-background { left: 0; top: 0; }
+  .skip-step { @include paddingBottom(0px, 40px, 24px); }
+  .steps { min-height: calc(100vh - 620px); }
+
+  .reveal-banner {
+    left: 0;
+    top: 16px;
+    padding-left: calc(12px + env(safe-area-inset-left));
+  }
+
+  @media screen and (max-width: $browser-small) {
+    main { @include paddingLeftRight(24px); }
+
+    .skip-step {
+      @include theme(background, #eee, #444);
+      text-align: left;
+      margin: 0 calc(-24px - env(safe-area-inset-right)) -6px calc(-24px - env(safe-area-inset-left));
+      width: auto;
+      @include paddingBottom(14px, 90px, 14px, 24px);
+    }
+  }
+}

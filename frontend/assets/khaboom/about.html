@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - Kha-Boom!</title>
+  <meta name="description" content="Learn about Kha-Boom! - The interactive learning platform">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="/khaboom/styles.css" rel="stylesheet">
+  <link href="/khaboom/custom-components.css" rel="stylesheet">
+  <link href="/khaboom/enhanced-effects.css" rel="stylesheet">
+  <style>
+    .about-header {
+      background: linear-gradient(135deg, #6B46C1 0%, #9F7AEA 100%);
+      color: white;
+      padding: 4rem 0 2rem;
+      text-align: center;
+    }
+    
+    .about-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .about-header p {
+      max-width: 600px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+    
+    .about-section {
+      padding: 4rem 0;
+    }
+    
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    
+    .about-content h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+    
+    .about-content h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 80px;
+      height: 3px;
+      background-color: var(--color-primary);
+    }
+    
+    .about-content p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+    
+    .about-image {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .about-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    .team-section {
+      background-color: var(--color-background-alt);
+      padding: 4rem 0;
+    }
+    
+    .team-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .team-header h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .team-header p {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      justify-content: center;
+      justify-items: center;
+    }
+    
+    .team-member {
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .team-member:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .member-image {
+      height: 250px;
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .member-content {
+      padding: 1.5rem;
+      text-align: center;
+    }
+    
+    .member-content h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+      line-height: 1.3;
+      word-break: break-word;
+      hyphens: auto;
+    }
+    
+    /* Responsive font sizing for long names */
+    .member-content h3 {
+      font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+      max-width: 100%;
+      overflow-wrap: break-word;
+    }
+    
+    /* Better spacing for wrapped names */
+    .team-member {
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 280px;
+    }
+    
+    .member-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    
+    .member-content p.role {
+      color: var(--color-primary);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    
+    .member-content p.bio {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    
+    @media (max-width: 768px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .about-image {
+        order: -1;
+      }
+    }
+  </style>
+</head>
+<body class="about-page">
+  <header class="kb-custom-header">
+  <div class="kb-header-container">
+    <a class="kb-logo" href='/khaboom'>
+      <img src="/khaboom/images/logokb.png" alt="Kha-Boom!">
+      <span class="kb-logo-text kb-colorful-text" data-text="Kha-Boom!">Kha-Boom!</span>
+    </a>
+    
+    <button id="kbMobileMenuBtn" class="kb-mobile-menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+    
+    <nav class="kb-nav">
+      <a class="kb-nav-link" href='/khaboom'>Home</a>
+      <a class="kb-nav-link" href='/khaboom/dashboard.html'>Dashboard</a>
+      <a class="kb-nav-link active" href='/khaboom/about.html'>About</a>
+    </nav>
+  </div>
+  </header>
+
+  <main>
+    <section class="about-header">
+      <div class="container">
+        <h1>About Kha-Boom!</h1>
+        <p>We're revolutionizing education through interactive learning experiences</p>
+      </div>
+    </section>
+    
+    <section class="about-section">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-content">
+            <h2>Our Story</h2>
+            <p>The starting year of Kha-Boom! was 2025, and with reason made: to make getting a little math and science fun, interactive, and accessible to all. We believe the educational aspect is an exciting exploration- rather than dying by memorization.</p>
+            <p>Our team, forming from the Ho Chi Minh City University of Education, consists of educators, designers, and developers united in their passion for working with immersive learning environments and visualization techniques that expedite the grasping of difficult concepts through interaction. The combination of current educational research with advanced technology makes for a progressive approach to how learning is facilitated.</p>
+          </div>
+          <div class="about-image">
+            <img src="images/teammember/team1.png" alt="Team collaboration">
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="about-section">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-image">
+            <img src="images/teammember/team2.png" alt="Our Approach Illustration">
+          </div>
+          <div class="about-content">
+            <h2>Our Approach</h2>
+            <p>Studying at Kha-Boom! means they understand that the best learning happens through direct experience. Hence, all courses are designed to offer interactive experiences such as manipulating ideas, exploring concepts, testing ideas, and watching the consequences.</p>
+            <p>Created by a group of enthusiastic members from Ho Chi Minh City University of Education, the courses are flexible and adaptable as they try to meet students where they are and support them in learning at their own pace. This means it offers special help to you if you are a visual learner, someone who learns best through practice, or a problem-solving person.</p>
+            <p>By making education interesting and interactive, we help students build their confidence, ignite their curiosity, and develop an enduring interest in learning.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="team-section">
+      <div class="container">
+        <div class="team-header">
+          <h2>Meet Our Team</h2>
+          <p>The passionate individuals behind Kha-Boom!</p>
+        </div>
+        
+        <div class="team-grid">
+          <div class="team-member">
+            <div class="member-image" style="background-image: url(images/teammember/Hung.png)"></div>
+            <div class="member-content">
+              <h3>Nguyễn Hưng</h3>
+              <p class="role">48.01.101.022</p>
+              <p class="bio"></p>
+            </div>
+          </div>
+          
+            <div class="team-member">
+              <div class="member-image" style="background-image: url(images/teammember/Hao.png)"></div>
+              <div class="member-content">
+                <h3>Nguyễn Đình Anh Hào</h3>
+                <p class="role">48.01.101.016</p>
+                <p class="bio"></p>
+              </div>
+            </div>
+
+          <div class="team-member">
+            <div class="member-image" style="background-image: url(images/teammember/Quan.png)"></div>
+            <div class="member-content">
+              <h3>Nguyễn Minh Quân</h3>
+              <p class="role">48.01.101.063</p>
+              <p class="bio"></p>
+            </div>
+          </div>
+          
+          <div class="team-member">
+            <div class="member-image" style="background-image: url(images/teammember/Vi.png)"></div>
+            <div class="member-content">
+              <h3>Huỳnh Văn Vĩ</h3>
+              <p class="role">48.01.101.104</p>
+              <p class="bio"></p>
+            </div>
+          </div>
+
+          <div class="team-member">
+            <div class="member-image" style="background-image: url(images/teammember/Phuc.png)"></div>
+            <div class="member-content">
+              <h3>Trương Nguyễn Gia Phúc</h3>
+              <p class="role">48.01.101.059</p>
+              <p class="bio"></p>
+            </div>
+          </div>
+          
+          <div class="team-member">
+            <div class="member-image" style="background-image: url(images/teammember/Long.png)"></div>
+            <div class="member-content">
+              <h3>Nguyễn Phi Hoàng Long</h3>
+              <p class="role">48.01.101.039</p>
+              <p class="bio"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="kb-enhanced-footer">
+      <div class="kb-footer-container">
+        <div class="kb-footer-grid">
+          <div class="kb-footer-col">
+            <img src="/khaboom/images/logokb.png" alt="Kha-Boom!" class="kb-footer-logo">
+            <h3>Learning Reimagined</h3>
+            <p>Interactive education that makes complex subjects fun and accessible for everyone.</p>
+            <div class="kb-social-links">
+              <a href="#" class="kb-social-icon" aria-label="Twitter">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                </svg>
+              </a>
+              <a href="#" class="kb-social-icon" aria-label="Facebook">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+              </a>
+              <a href="#" class="kb-social-icon" aria-label="Instagram">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </a>
+              <a href="#" class="kb-social-icon" aria-label="YouTube">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                  <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                </svg>
+              </a>
+            </div>
+          </div>
+          
+          <div class="kb-footer-col">
+            <h3>Explore</h3>
+            <ul class="kb-footer-links">
+              <li><a href="/khaboom">Home</a></li>
+              <li><a href="/khaboom/dashboard.html">Course Dashboard</a></li>
+              <li><a href="/khaboom/about.html">About Us</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Tutorials</a></li>
+            </ul>
+          </div>
+          
+         
+          
+          <div class="kb-footer-col">
+            <h3>Help & Support</h3>
+            <ul class="kb-footer-links">
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Terms of Use</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="kb-footer-divider"></div>
+        
+        <div class="kb-footer-bottom">
+          <div class="kb-copyright">
+            <p>© 2025 Kha-Boom! Interactive Learning. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+  </footer>
+
+  <script src="/khaboom/main.js"></script>
+  <script src="/khaboom/custom-components.js"></script>
+  <script src="/khaboom/enhanced-effects.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+extends _layout
+
+block vars
+  - var title = __('About Us')
+
+block header
+  //- Use header from static HTML
+
+block footer
+  //- Use footer from static HTML
+
+block main
+  // Use your custom About page from public/khaboom
+  != include('khaboom/about.html', 'public')

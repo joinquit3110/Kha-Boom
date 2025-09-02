@@ -1,0 +1,279 @@
+// =============================================================================
+// Probability
+// (c) Kha-Boom!
+// =============================================================================
+
+
+@import "@khaboom/studio/frontend/styles/variables";
+@import "../shared/components/buckets/buckets";
+
+
+// Support both "gameshow" and "dark gameshow" classes
+article.gameshow .page-background,
+article.dark.gameshow .page-background {
+  background: url('/content/probability/images/lights.jpg') no-repeat center top;
+  background-size: cover;
+  background-position: center;
+  transform: translate3D(0,0,0);
+  min-height: 100vh;
+}
+
+// Use dark text on light background for better readability
+article.gameshow,
+article.dark.gameshow {
+  background: white;
+  min-height: 100vh;
+  
+  color: #2c3e50 !important;
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: #34495e !important;
+    text-shadow: none;
+  }
+  
+  p, .text-center, div {
+    color: #2c3e50 !important;
+  }
+  
+  // Ensure all text elements are dark and visible
+  * {
+    color: #2c3e50;
+  }
+}
+
+
+// -----------------------------------------------------------------------------
+// Introduction
+
+.p-line img {
+  float: left;
+  display: block;
+}
+
+.probTable table { width: 100%; table-layout: fixed; }
+.probTable td { overflow: hidden; padding: 6px 0; border-bottom: 1px solid rgba(0,0,0,0.3); }
+.probTable tr:last-child td { border-bottom: none; }
+
+.dice {
+  width: 20px;
+  height: 20px;
+  background: $red;
+  border: 1px solid rgba(black, 20%);
+  color: white; fill: white;
+  display: inline-block;
+  border-radius: 4px;
+  line-height: 20px;
+  text-align: center;
+  font-size: 80%;
+
+  &.outline { background: rgba($red, 20%); border-color: $red; color: $red; font-weight: bold; vertical-align: 1px; }
+  svg { vertical-align: -4px; display: inline-block; }
+}
+
+.dice-table {
+  tr:first-child td { border-bottom: 1px solid $light-grey; }
+  td { width: 64px; padding: 4px 0; border-right: 1px solid $light-grey; }
+  td:last-child { border-right: none; }
+}
+
+.pBox { width: 100%; height: 200px; position: relative;}
+.diceCount { width: 100%; position: absolute; bottom: 0; background: rgba($blue, 40%); }
+.diceProb  { width: 100%; position: absolute; bottom: 0; background: $green; height: 3px; }
+
+
+// -----------------------------------------------------------------------------
+// Conditional Probability
+
+x-buckets.independent {
+  .input { width: 220px; }
+  .bucket { width: 300px; }
+  .bucket:nth-child(1) { background: mix($teal, $grey-background, 85%); }
+  .bucket:nth-child(2) { background: mix($purple, $grey-background, 85%); }
+}
+
+
+// -----------------------------------------------------------------------------
+// Monty Hall
+
+// Button styles for gameshow sections
+.gameshow .btn,
+.dark.gameshow .btn {
+  background: #3498db !important;
+  color: white !important;
+  border: 3px solid #2980b9 !important;
+  border-radius: 8px !important;
+  padding: 12px 24px !important;
+  font-weight: bold !important;
+  font-size: 16px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15) !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+  
+  &:hover, &:focus { 
+    background: #2980b9 !important; 
+    color: white !important; 
+    transform: translateY(-3px) !important;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25) !important;
+    border-color: #1f5f99 !important;
+  }
+  
+  &.disabled, &:disabled { 
+    color: #7f8c8d !important; 
+    background: #ecf0f1 !important; 
+    border-color: #bdc3c7 !important;
+    opacity: 0.7 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+  }
+}
+
+// Ensure all text in gameshow sections is dark
+.gameshow, .dark.gameshow {
+  .monty-reveal {
+    color: #2c3e50 !important;
+    
+    p {
+      color: #2c3e50 !important;
+    }
+  }
+}
+
+.monty-hall {
+  padding: 21% 0 2em;
+  position: sticky;
+  top: 40px;
+  z-index: 1;
+  background: url('/content/probability/images/doorframe.png') no-repeat;
+  background-size: contain;
+
+  .door-box {
+    float: left;
+    width: 16%;
+    margin: 0 4%;
+    padding-bottom: 24%;
+    position: relative;
+    perspective: 450px;
+    background: url('/content/probability/images/goat.png');
+    background-size: contain;
+
+    &.car { background-image: url('/content/probability/images/car.png'); }
+    &:first-child { margin-left: 18%; }
+  }
+
+  .door-box:before {
+    content: " ";
+    display: block;
+    position: absolute;
+    background: url('/content/probability/images/arrow.png') no-repeat;
+    width: 62%;
+    height: 35%;
+    z-index: 10;
+    background-size: contain;
+    left: 20%;
+    top: -24%;
+    opacity: 0;
+    transform: translateY(-40px);
+    transition: opacity .2s, transform .2s;
+  }
+
+  &.selectable .door-box:hover:before {
+    opacity: 1;
+    transform:  translateY(-10px);
+  }
+
+  .door-box.selected:before {
+    opacity: 1;
+    transform: none !important;
+  }
+
+  .door {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-origin: 0 50%;
+    transition: transform 1s, box-shadow .3s;
+    background: url('/content/probability/images/door.png');
+    background-size: contain;
+
+  }
+
+  &.selectable .door { cursor: pointer; }
+  .door-box.open .door { transform: rotateY(-95deg); }
+
+  .floor {
+    clear: both;
+    padding-bottom: 13%;
+    background: url('/content/probability/images/floor.png');
+    background-size: cover;
+  }
+}
+
+.monty-reveal { transition: opacity .4s; opacity: 0; pointer-events: none; }
+.monty-reveal.visible { opacity: 1; pointer-events: all; }
+
+#monty-hall .btn { 
+  margin: 0 16px; 
+}
+
+// Additional button styles for specific game buttons
+.gameshow .btn.sure,
+.gameshow .btn.swap,
+.gameshow .btn.show,
+.gameshow .btn.reset,
+.dark.gameshow .btn.sure,
+.dark.gameshow .btn.swap,
+.dark.gameshow .btn.show,
+.dark.gameshow .btn.reset {
+  background: linear-gradient(145deg, #e74c3c, #c0392b) !important;
+  color: white !important;
+  border: 3px solid #a93226 !important;
+  
+  &:hover, &:focus {
+    background: linear-gradient(145deg, #c0392b, #a93226) !important;
+    border-color: #922b21 !important;
+  }
+}
+
+// Special styling for "I want to swap" button
+.gameshow .btn.swap:last-child,
+.dark.gameshow .btn.swap:last-child {
+  background: linear-gradient(145deg, #27ae60, #2ecc71) !important;
+  border-color: #229954 !important;
+  
+  &:hover, &:focus {
+    background: linear-gradient(145deg, #229954, #1e8449) !important;
+    border-color: #1e8449 !important;
+  }
+}
+
+
+// -----------------------------------------------------------------------------
+// Probability Trees
+
+.galton .ball { fill: $red; }
+.ballCount {
+  width: 120%;
+  position: absolute;
+  bottom: 0;
+  background: rgba(#0F82F2, 40%);
+}
+.ballTable table { table-layout: fixed; }
+.ballProb  {
+  width: 120%;
+  position: absolute;
+  bottom: 0;
+  background: $green;
+  height: 3px;
+}
+
+
+// -----------------------------------------------------------------------------
+// Randomness
+
+.radioactive circle {
+  fill: $red;
+  &.off { fill: $blue; transform: scale(0.7); }
+}

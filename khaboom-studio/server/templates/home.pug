@@ -1,0 +1,16 @@
+extends _layout
+
+block vars
+  - var title = config.siteName;
+  - var styles = ['/main.css']
+  - var scripts = ['/main.js']
+
+block header
+  //- Use header from static HTML
+
+block footer
+  //- Use footer from static HTML
+
+block main
+  // Replace dev listing with your custom landing page HTML stored in public/khaboom/index.html
+  != include('khaboom/index.html', 'public')

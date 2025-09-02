@@ -1,0 +1,16 @@
+extends _layout
+
+block vars
+  - var title = __('Student Dashboard')
+  - var styles = ['/dashboard.css']
+  - var scripts = ['/dashboard.js']
+
+block header
+  //- Use header from static HTML
+
+block footer
+  //- Use footer from static HTML
+
+block main
+  // Prefer checked-in frontend assets over public backup
+  != include('khaboom/dashboard.html', 'frontend/assets')

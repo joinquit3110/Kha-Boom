@@ -1,0 +1,54 @@
+# ==============================================================================
+# Mathigon Studio Default Settings
+# (c) Kha-Boom!
+# ==============================================================================
+
+
+siteName: Kha-Boom! Studio
+privacyURL: https://amplify.com/customer-privacy
+banner: (c) Kha-Boom!
+locales: [en]
+
+contentDir: content
+
+search:
+  enabled: true
+
+sitemap: []
+
+header:
+  logo: images/logo.svg
+  title: images/title.svg
+  links: []
+
+social: {}
+
+footer:
+  rows: []
+  copyright: © Kha-Boom!, 2025
+
+courses:
+  revealAll: false
+  audio: false
+
+accounts:
+  enabled: true
+  minAge: 13
+  privacyPolicy: https://amplify.com/customer-privacy
+  termsOfUse: https://amplify.com/acceptable-use-policy
+  address: Kha-Boom! Education, Vietnam
+  supportEmail: support@khaboom.org
+  sendgridKey: YOUR_SENDGRID_API_KEY_HERE
+  mongoServer: mongodb://localhost:27017/khaboom
+  oAuth:
+    google:
+      clientId: YOUR_GOOGLE_CLIENT_ID
+      clientSecret: YOUR_GOOGLE_CLIENT_SECRET
+    facebook:
+      clientId: YOUR_FACEBOOK_CLIENT_ID
+      clientSecret: YOUR_FACEBOOK_CLIENT_SECRET
+
+tutor:
+  enabled: true
+  name: Stewie
+  icon: images/archie.svg

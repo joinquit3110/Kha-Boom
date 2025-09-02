@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Kha-Boom!</title>
+  <meta name="description" content="Explore interactive courses on Kha-Boom! learning platform">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="/khaboom/styles.css" rel="stylesheet">
+  <link href="/khaboom/dashboard-styles.css" rel="stylesheet">
+  <link href="/khaboom/custom-components.css" rel="stylesheet">
+  <link href="/khaboom/enhanced-effects.css" rel="stylesheet">
+  <style>body{overflow-x:hidden}</style>
+</head>
+<body class="dashboard-page">
+  <header class="kb-custom-header">
+  <div class="kb-header-container">
+    <a class="kb-logo" href='/khaboom'>
+      <img src="/khaboom/images/logokb.png" alt="Kha-Boom!">
+      <span class="kb-logo-text kb-colorful-text" data-text="Kha-Boom!">Kha-Boom!</span>
+    </a>
+    
+    <button id="kbMobileMenuBtn" class="kb-mobile-menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+    
+    <nav class="kb-nav">
+      <a class="kb-nav-link" href='/khaboom'>Home</a>
+      <a class="kb-nav-link active" href='/khaboom/dashboard.html'>Dashboard</a>
+      <a class="kb-nav-link" href='/khaboom/about.html'>About</a>
+    </nav>
+  </div>
+  </header>
+
+  <main>
+    <section class="kb-hero-section" style="background-image: url('/content/fractals/hero.jpg')">
+      <div class="kb-hero-overlay"></div>
+      <div class="kb-hero-content container">
+        <h1 class="kb-hero-title">Explore Our <span class="kb-colorful-text" data-text="Interactive Courses">Interactive Courses</span></h1>
+        <p class="kb-hero-description">Discover a world of engaging, interactive learning experiences tailored to help you master complex concepts with ease.</p>
+        
+        <!-- Search Box -->
+        <div class="search-box">
+           <input type="text" id="courseSearch" placeholder="Search for courses..." aria-label="Search courses">
+          <button id="searchButton" class="search-btn shine-effect">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+    
+    <section class="categories">
+      <div class="container">
+        <div class="filters-wrapper">
+          <div class="filter-group">
+            <label for="sortSelect">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="21" y1="10" x2="3" y2="10"></line>
+                <line x1="21" y1="6" x2="9" y2="6"></line>
+                <line x1="21" y1="14" x2="3" y2="14"></line>
+                <line x1="21" y1="18" x2="9" y2="18"></line>
+              </svg>
+              Sort By
+            </label>
+            <select id="sortSelect" class="filter-select" aria-label="Sort courses">
+              <option value="name-asc">Name (A-Z)</option>
+              <option value="name-desc">Name (Z-A)</option>
+              <option value="level-asc">Level (Beginner-Advanced)</option>
+              <option value="level-desc">Level (Advanced-Beginner)</option>
+            </select>
+          </div>
+          
+          <div class="filter-group">
+            <label for="categorySelect">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 6h18"></path>
+                <path d="M3 12h18"></path>
+                <path d="M3 18h18"></path>
+              </svg>
+              Category
+            </label>
+            <select id="categorySelect" class="filter-select" aria-label="Filter by category">
+              <option value="all">All Categories</option>
+              <option value="mathematics">Mathematics</option>
+              <option value="geometry">Geometry</option>
+              <option value="probability">Probability & Statistics</option>
+              <option value="computer-science">Computer Science</option>
+              <option value="physics">Physics</option>
+            </select>
+          </div>
+          
+          <div class="filter-group">
+            <label for="levelSelect">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 3v18h18"></path>
+                <path d="M3 12h18"></path>
+                <path d="M8 3v18"></path>
+                <path d="M18 8h-8"></path>
+                <path d="M18 16h-8"></path>
+              </svg>
+              Level
+            </label>
+            <select id="levelSelect" class="filter-select" aria-label="Filter by level">
+              <option value="all">All Levels</option>
+              <option value="Foundations">Foundations</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+            </select>
+          </div>
+          
+          <button id="resetFilters" class="reset-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 2v6h6"></path>
+              <path d="M21 12A9 9 0 0 0 6 5.3L3 8"></path>
+              <path d="M21 22v-6h-6"></path>
+              <path d="M3 12a9 9 0 0 0 15 6.7l3-2.7"></path>
+            </svg>
+            Reset Filters
+          </button>
+        </div>
+        
+        <!-- Category Tabs -->
+        <div class="category-tabs">
+          <div class="category-tab active" data-category="all">All Courses</div>
+          <div class="category-tab" data-category="mathematics">Mathematics</div>
+          <div class="category-tab" data-category="geometry">Geometry</div>
+          <div class="category-tab" data-category="probability">Probability & Statistics</div>
+          <div class="category-tab" data-category="computer-science">Computer Science</div>
+          <div class="category-tab" data-category="physics">Physics</div>
+        </div>
+      </div>
+    </section>
+    
+    <div class="course-count-wrapper">
+      <div class="container">
+        <p class="course-count">Showing <span id="courseCount">0</span> courses</p>
+      </div>
+    </div>
+    
+    <section>
+      <div class="container">
+         <div class="course-grid" id="courseGrid" aria-live="polite">
+          <!-- Course cards will be loaded dynamically -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="kb-enhanced-footer">
+      <div class="kb-footer-container">
+        <div class="kb-footer-grid">
+          <div class="kb-footer-col">
+            <img src="/khaboom/images/logokb.png" alt="Kha-Boom!" class="kb-footer-logo">
+            <h3>Learning Reimagined</h3>
+            <p>Interactive education that makes complex subjects fun and accessible for everyone.</p>
+            <div class="kb-social-links">
+              <a href="#" class="kb-social-icon" aria-label="Twitter">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                </svg>
+              </a>
+              <a href="#" class="kb-social-icon" aria-label="Facebook">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+              </a>
+              <a href="#" class="kb-social-icon" aria-label="Instagram">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </a>
+              <a href="#" class="kb-social-icon" aria-label="YouTube">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                  <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                </svg>
+              </a>
+            </div>
+          </div>
+          
+          <div class="kb-footer-col">
+            <h3>Explore</h3>
+            <ul class="kb-footer-links">
+              <li><a href="/khaboom">Home</a></li>
+              <li><a href="/khaboom/dashboard.html">Course Dashboard</a></li>
+              <li><a href="/khaboom/about.html">About Us</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Tutorials</a></li>
+            </ul>
+          </div>
+          
+         
+          
+          <div class="kb-footer-col">
+            <h3>Help & Support</h3>
+            <ul class="kb-footer-links">
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Terms of Use</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="kb-footer-divider"></div>
+        
+        <div class="kb-footer-bottom">
+          <div class="kb-copyright">
+            <p>© 2025 Kha-Boom! Interactive Learning. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+  </footer>
+
+
+  <script src="/khaboom/main.js"></script>
+  <script src="/khaboom/dashboard.js"></script>
+  <script src="/khaboom/custom-components.js"></script>
+  <script src="/khaboom/enhanced-effects.js"></script>
+
+  <script>
+    // Create bubbles for background
+    document.addEventListener('DOMContentLoaded', function() {
+      const bubbleContainer = document.getElementById('bubbleContainer');
+      
+      // Create big bubbles in the header section
+      function createBubbles() {
+        // Clear existing bubbles
+        bubbleContainer.innerHTML = '';
+        
+        // Create multiple bubbles with different sizes and positions
+        for (let i = 0; i < 10; i++) {
+          const bubble = document.createElement('div');
+          bubble.classList.add('bubble');
+          
+          // Random size (bigger bubbles)
+          const size = Math.random() * 100 + 50;
+          bubble.style.width = `${size}px`;
+          bubble.style.height = `${size}px`;
+          
+          // Random horizontal position
+          const left = Math.random() * 100;
+          bubble.style.left = `${left}%`;
+          
+          // Random animation duration
+          const duration = Math.random() * 10 + 10;
+          bubble.style.animationDuration = `${duration}s`;
+          
+          // Random animation delay
+          const delay = Math.random() * 10;
+          bubble.style.animationDelay = `${delay}s`;
+          
+          bubbleContainer.appendChild(bubble);
+        }
+      }
+      
+      createBubbles();
+      window.addEventListener('resize', createBubbles);
+    });
+  </script>
+  
+</body>
+</html>

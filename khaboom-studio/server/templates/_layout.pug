@@ -1,0 +1,83 @@
+include _mixins
+
+//- Default template variables
+block vars
+- var title = title ? title + ' - ' + config.siteName : config.siteName
+- var description = description || config.description
+- var thumbnail = thumbnail || '/images/thumbnail.jpg';
+
+if xhr
+  title= title
+  block main
+
+else
+  doctype html
+  html(lang=locale.id dir=(locale.dir || 'ltr') theme=theme class=htmlClass)
+    head
+      include _head
+      block head
+
+      block fonts
+        //- Kha-Boom! custom fonts - Montserrat + Poppins
+        link(href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet")
+        link(rel="dns-prefetch" href="https://fonts.googleapis.com")
+        link(rel="preconnect" href="https://fonts.gstatic.com/" crossorigin)
+
+      script window.csrfToken = '#{_csrf}'
+      meta(name="csrf-token" content=_csrf)
+
+      block styles
+        for s in (styles || ['/main.css'])
+          link(href=cacheBust(s) rel='stylesheet')
+        //- Kha-Boom! custom styles
+        link(href="/khaboom/styles.css" rel="stylesheet")
+        link(href="/khaboom/custom-components.css" rel="stylesheet")
+        link(href="/khaboom/enhanced-effects.css" rel="stylesheet")
+
+    body
+      noscript.warning
+        .warning-body
+          img(src="/khaboom/images/logokb.png" alt="Kha-Boom!" width="48" height="48")
+          p= __('Please enable JavaScript in your browser to access $0.', config.siteName)
+
+      //- IE Warning
+      .ie-warning(style="display: none;")
+        .warning-body
+          img(src="/khaboom/images/logokb.png" alt="Kha-Boom!" width="48" height="48")
+          p= __('Unfortunately, Internet Explorer does not support all features. We recommend using Google Chrome.', config.siteName)
+
+      block header
+        include _header
+      include accounts/privacy-modal
+
+      if showCookieConsent
+        .cookie-warning
+          p #{__(`$0 uses cookies to personalise and improve this website.`, config.siteName)}
+          .btn-row
+            button#yes-to-cookies.btn.btn-white.btn-small #{__('Accept')}
+            a.btn.btn-white.btn-small(href=config.privacyURL) #{__('Privacy Policy')}
+
+      main
+        block main
+
+      block footer
+        include _footer
+
+      block scripts
+        script(src=cacheBust('/polyfill.js'))
+        for s in (scripts || ['/main.js'])
+          script(src=cacheBust(s))
+        //- Kha-Boom! enhanced scripts
+        script(src="/khaboom/main.js")
+        script(src="/khaboom/custom-components.js") 
+        script(src="/khaboom/enhanced-effects.js")
+
+      if env === 'production' && config.googleAnalytics
+        script.
+          window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};
+          ga.l = +new Date;
+          ga('create', #{config.googleAnalytics}, 'auto');
+          ga('set', 'transport', 'beacon');
+          ga('require', 'displayfeatures');
+          ga('require', 'pageVisibilityTracker', {sendInitialPageview: true});
+        script(async src="https://www.google-analytics.com/analytics.js")
